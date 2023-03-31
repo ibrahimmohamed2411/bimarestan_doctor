@@ -1,3 +1,4 @@
+import 'package:bimarestan_doctors/features/user/presentation/screens/categories_screen.dart';
 import 'package:bimarestan_doctors/landing_screen.dart';
 import 'package:bimarestan_doctors/routes/app_router.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         builder: EasyLoading.init(),
         theme: getApplicationTheme(),
         onGenerateRoute: AppRouter.onGenerateRoute,
-        // home: LandingScreen(),
+        // home: CategoriesScreen(),
       ),
     );
   }

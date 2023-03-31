@@ -1,3 +1,4 @@
+import 'package:bimarestan_doctors/features/user/presentation/screens/categories_screen.dart';
 import 'package:bimarestan_doctors/features/user/presentation/screens/home_screen.dart';
 import 'package:bimarestan_doctors/features/user/presentation/screens/login_screen.dart';
 import 'package:bimarestan_doctors/features/user/presentation/screens/sign_up_screen.dart';
@@ -5,6 +6,7 @@ import 'package:bimarestan_doctors/features/splash/presentation/screens/splash_s
 import 'package:bimarestan_doctors/routes/routes.dart';
 import 'package:flutter/material.dart';
 
+import '../features/user/data/models/category_model.dart';
 import '../landing_screen.dart';
 
 class AppRouter {
@@ -13,14 +15,21 @@ class AppRouter {
       case Routes.splash:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case Routes.landing:
-        return MaterialPageRoute(builder: (_) => const LandingScreen());  
+        return MaterialPageRoute(builder: (_) => const LandingScreen());
       case Routes.signIn:
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case Routes.signUp:
-        return MaterialPageRoute(builder: (_) => const SignUpScreen());
+        final category = settings.arguments as CategoryModel;
+        return MaterialPageRoute(
+          builder: (_) => SignUpScreen(
+            categoryModel: category,
+          ),
+        );
       case Routes.home:
-        return MaterialPageRoute(builder: (_) => const HomeScreen());  
-    
+        return MaterialPageRoute(builder: (_) => const HomeScreen());
+
+      case Routes.categories:
+        return MaterialPageRoute(builder: (_) => CategoriesScreen());
     }
   }
 }

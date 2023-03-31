@@ -18,11 +18,8 @@ class LoginProvider extends ChangeNotifier {
   final password = TextEditingController();
   final _userRepository = locator<UserRepository>();
   final _snackBarService = locator<SnackBarService>();
-  final _navigationService = locator<NavigationService>();
 
   void submit() async {
-    print('email: ${email.text}');
-    print('password: ${password.text}');
     if (formKey.currentState!.validate()) {
       showLoadingDialog();
       final successOrFailure = await _userRepository.login(
@@ -38,7 +35,6 @@ class LoginProvider extends ChangeNotifier {
         },
         (success) {
           dismissLoadingDialog();
-          // _navigationService.pushNamedAndRemoveUntil(Routes.home);
         },
       );
     }

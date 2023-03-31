@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bimarestan_doctors/features/user/data/models/login_response_model.dart';
+import 'package:bimarestan_doctors/features/user/data/models/user_credentials_model.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rx_shared_preferences/rx_shared_preferences.dart';
 
@@ -13,33 +13,33 @@ class UserLocalDataSource {
     required this.rxSharedPreferences,
   });
 
-  Future<void> saveUserCredentials(Map<String, dynamic> userCredentials) async {
+  Future<void> saveUserCredentials(UserCredentialsModel userCredentials) async {
     await rxSharedPreferences.setString(
       USERCREDENTIALS,
-      json.encode(userCredentials),
+      json.encode(userCredentials.toJson()),
     );
   }
 
-  Stream<LoginResponseModel?> userCredentialsStream() {
+  Stream<UserCredentialsModel?> userCredentialsStream() {
     return rxSharedPreferences.getStringStream(USERCREDENTIALS).map(
       (userCredentials) {
         if (userCredentials == null) {
           return null;
         }
-        return LoginResponseModel.fromJson(
+        return UserCredentialsModel.fromJson(
           json.decode(userCredentials),
         );
       },
     );
   }
 
-  Future<LoginResponseModel?> getUserCredentials() async {
+  Future<UserCredentialsModel?> getUserCredentials() async {
     final userCredentials =
         await rxSharedPreferences.getString(USERCREDENTIALS);
     if (userCredentials == null) {
       return null;
     }
-    return LoginResponseModel.fromJson(
+    return UserCredentialsModel.fromJson(
       json.decode(userCredentials),
     );
   }

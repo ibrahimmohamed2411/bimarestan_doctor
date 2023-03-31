@@ -1,13 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_response_model.dart';
+part of 'user_credentials_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-LoginResponseModel _$LoginResponseModelFromJson(Map<String, dynamic> json) =>
-    LoginResponseModel(
+UserCredentialsModel _$UserCredentialsModelFromJson(
+        Map<String, dynamic> json) =>
+    UserCredentialsModel(
       address: json['address'] as String,
       age: json['age'] as int,
       categoryId: json['categoryId'] as int?,
@@ -28,7 +29,8 @@ LoginResponseModel _$LoginResponseModelFromJson(Map<String, dynamic> json) =>
       token: json['token'] as String,
     );
 
-Map<String, dynamic> _$LoginResponseModelToJson(LoginResponseModel instance) =>
+Map<String, dynamic> _$UserCredentialsModelToJson(
+        UserCredentialsModel instance) =>
     <String, dynamic>{
       'address': instance.address,
       'age': instance.age,

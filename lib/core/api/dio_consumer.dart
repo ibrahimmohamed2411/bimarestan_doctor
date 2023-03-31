@@ -57,14 +57,13 @@ class DioConsumer implements ApiConsumer {
       {Map<String, dynamic>? body,
       bool formDataIsEnabled = false,
       Map<String, dynamic>? queryParameters}) async {
-    final response = await client.post(url,
-        queryParameters: queryParameters,
-        data: formDataIsEnabled ? FormData.fromMap(body!) : body);
-    if (response.statusCode == 200) {
+    try {
+      final response = await client.post(url,
+          queryParameters: queryParameters,
+          data: formDataIsEnabled ? FormData.fromMap(body!) : body);
       return _handelResponseAsJson(response);
-    } else {
-      final errorMessage = json.decode(response.data);
-      throw ServerException(msg: errorMessage['message']);
+    } on DioError catch (e) {
+      _handleDioError(e);
     }
   }
 

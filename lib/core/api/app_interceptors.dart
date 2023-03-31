@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../features/user/data/datasources/user_local_data_source.dart';
-import '../../features/user/data/models/login_response_model.dart';
+import '../../features/user/data/models/user_credentials_model.dart';
 import '../resources/app_strings.dart';
 
 @lazySingleton
@@ -20,7 +20,7 @@ class AppInterceptors extends Interceptor {
       RequestOptions options, RequestInterceptorHandler handler) async {
     debugPrint('REQUEST[${options.method}] => PATH: ${options.path}');
 
-    LoginResponseModel? credentials =
+    UserCredentialsModel? credentials =
         await userLocalDataSource.getUserCredentials();
 
     if (credentials != null) {

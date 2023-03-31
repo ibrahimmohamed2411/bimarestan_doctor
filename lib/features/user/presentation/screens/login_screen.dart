@@ -1,4 +1,3 @@
-
 import 'package:bimarestan_doctors/constants/assets.dart';
 import 'package:bimarestan_doctors/routes/routes.dart';
 import 'package:flutter/material.dart';
@@ -78,7 +77,6 @@ class LoginScreen extends StatelessWidget {
                                 validator: FormBuilderValidators.compose([
                                   FormBuilderValidators.required(),
                                   FormBuilderValidators.minLength(8),
-                                
                                   FormBuilderValidators.minLength(6),
                                 ]),
                               ),
@@ -110,7 +108,7 @@ class LoginScreen extends StatelessWidget {
                                   InkWell(
                                     onTap: () {
                                       Navigator.of(context)
-                                          .pushNamed(Routes.signUp);
+                                          .pushNamed(Routes.categories);
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.all(4),

@@ -5,7 +5,7 @@ import 'package:bimarestan_doctors/features/user/presentation/screens/login_scre
 import 'package:bimarestan_doctors/locator/locator.dart';
 import 'package:flutter/material.dart';
 
-import 'features/user/data/models/login_response_model.dart';
+import 'features/user/data/models/user_credentials_model.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
@@ -13,7 +13,7 @@ class LandingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder<LoginResponseModel?>(
+      body: StreamBuilder<UserCredentialsModel?>(
         stream: locator<UserLocalDataSource>().userCredentialsStream(),
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
