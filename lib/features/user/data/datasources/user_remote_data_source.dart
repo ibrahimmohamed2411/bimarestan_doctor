@@ -6,6 +6,7 @@ import 'package:bimarestan_doctors/features/user/data/models/user_credentials_mo
 import 'package:injectable/injectable.dart';
 
 import '../models/login_request_model.dart';
+import '../models/sign_up_request_model.dart';
 
 @lazySingleton
 class UserRemoteDataSource {
@@ -19,6 +20,15 @@ class UserRemoteDataSource {
     final response = await apiConsumer.post(
       EndPoints.login,
       body: loginRequestModel.toJson(),
+    );
+    return UserCredentialsModel.fromJson(response);
+  }
+  Future<UserCredentialsModel> signUp({
+    required SignUpRequestModel signUpRequestModel,
+  }) async {
+    final response = await apiConsumer.post(
+      EndPoints.register,
+      body: signUpRequestModel.toJson(),
     );
     return UserCredentialsModel.fromJson(response);
   }

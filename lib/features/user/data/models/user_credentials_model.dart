@@ -10,18 +10,18 @@ class UserCredentialsModel {
   final String? categoryName;
   final int? clinicId;
   final String? clinicName;
-  final String description;
+  final String? description;
   final String email;
   final String fireBaseToken;
-  final String fireBaseWebToken;
-  final String fullName;
+  final String ?fireBaseWebToken;
+  final String ?fullName;
   final int id;
-  final String image;
-  final String jobTitle;
+  final String ?image;
+  final String ?jobTitle;
 
-  final String phone;
+  final String ?phone;
   final int roleId;
-  final String roleName;
+  final String? roleName;
   final String token;
   UserCredentialsModel({
     required this.address,

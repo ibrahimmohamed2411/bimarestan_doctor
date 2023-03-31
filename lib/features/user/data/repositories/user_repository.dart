@@ -7,6 +7,7 @@ import 'package:injectable/injectable.dart';
 import '../../../../core/error/exceptions.dart';
 import '../datasources/user_local_data_source.dart';
 import '../datasources/user_remote_data_source.dart';
+import '../models/sign_up_request_model.dart';
 
 @lazySingleton
 class UserRepository {
@@ -22,6 +23,19 @@ class UserRepository {
     try {
       final model = await userRemoteDataSource.login(
         loginRequestModel: loginRequestModel,
+      );
+      userLocalDataSource.saveUserCredentials(model);
+      return Right(unit);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(msg: e.msg.toString()));
+    }
+  }
+  Future<Either<Failure, Unit>> signUp({
+    required SignUpRequestModel signUpRequestModel,
+  }) async {
+    try {
+      final model = await userRemoteDataSource.signUp(
+        signUpRequestModel: signUpRequestModel,
       );
       userLocalDataSource.saveUserCredentials(model);
       return Right(unit);

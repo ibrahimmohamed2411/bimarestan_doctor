@@ -121,7 +121,7 @@ class SignUpScreen extends StatelessWidget {
                                 // ),
                                 SizedBox(height: 4.h),
                                 DropdownButtonFormField<Governance>(
-                                  value: model.selectedGovernate,
+                                  value: model.selectedGovernance,
                                   items: governesses
                                       .map((e) => DropdownMenuItem(
                                             value: e,
@@ -132,30 +132,30 @@ class SignUpScreen extends StatelessWidget {
                                     labelText: 'Address',
                                     alignLabelWithHint: true,
                                   ),
-                                  onChanged: model.governateChanged,
+                                  onChanged: model.governanceChanged,
                                   validator: FormBuilderValidators.required(),
                                   autovalidateMode:
                                       AutovalidateMode.onUserInteraction,
                                 ),
-                                SizedBox(height: 4.h),
-                                TextFormField(
-                                  // controller: model.description,
-                                  decoration: const InputDecoration(
-                                    labelText: 'description',
-                                    alignLabelWithHint: true,
-                                  ),
-                                  maxLines: null,
-                                  keyboardType: TextInputType.multiline,
-                                  validator: FormBuilderValidators.required(),
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                ),
+                                // SizedBox(height: 4.h),
+                                // TextFormField(
+                                //   controller: model.,
+                                //   decoration: const InputDecoration(
+                                //     labelText: 'description',
+                                //     alignLabelWithHint: true,
+                                //   ),
+                                //   maxLines: null,
+                                //   keyboardType: TextInputType.multiline,
+                                //   validator: FormBuilderValidators.required(),
+                                //   autovalidateMode:
+                                //       AutovalidateMode.onUserInteraction,
+                                // ),
                                 SizedBox(height: 32.h),
                                 AppElevatedButton(
                                   height: 60.h,
-                                  onPressed: () {},
+                                  onPressed:()=> model.submit(categoryModel),
                                   child: Text(
-                                    'Next',
+                                    'Sign Up',
                                     style: TextStyle(fontSize: 20.sp),
                                   ),
                                 ),
