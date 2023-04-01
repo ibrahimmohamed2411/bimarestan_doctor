@@ -11,6 +11,7 @@ class PasswordTextFormField extends StatefulWidget {
     this.autovalidateMode = AutovalidateMode.onUserInteraction,
     this.onChanged,
     this.prefixIcon,
+    this.initialValue,
   }) : super(key: key);
   final TextEditingController? controller;
   final String? labelText;
@@ -19,6 +20,7 @@ class PasswordTextFormField extends StatefulWidget {
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
   final Icon? prefixIcon;
+  final String? initialValue;
   @override
   State<PasswordTextFormField> createState() => _PasswordTextFormFieldState();
 }
@@ -28,6 +30,7 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: widget.initialValue,
       controller: widget.controller,
       validator: widget.validator,
       autovalidateMode: widget.autovalidateMode,

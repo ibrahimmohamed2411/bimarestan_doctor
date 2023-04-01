@@ -1,3 +1,5 @@
+import 'package:bimarestan_doctors/features/clinics/presentation/screens/clinics_screen.dart';
+import 'package:bimarestan_doctors/features/profile/presentation/screens/profile_screen.dart';
 import 'package:bimarestan_doctors/features/user/presentation/screens/categories_screen.dart';
 import 'package:bimarestan_doctors/features/user/presentation/screens/home_screen.dart';
 import 'package:bimarestan_doctors/features/user/presentation/screens/login_screen.dart';
@@ -30,6 +32,10 @@ class AppRouter {
 
       case Routes.categories:
         return MaterialPageRoute(builder: (_) => CategoriesScreen());
+      case Routes.clinics:
+        return MaterialPageRoute(builder: (_) => ClinicsScreen());  
+      case Routes.profile:
+        return MaterialPageRoute(builder: (_) => const ProfileScreen());  
     }
   }
 }

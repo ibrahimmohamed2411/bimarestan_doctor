@@ -4,6 +4,7 @@ import 'package:bimarestan_doctors/features/user/data/models/category_model.dart
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'package:bimarestan_doctors/features/user/data/models/sign_up_request_model.dart';
@@ -16,7 +17,6 @@ import '../screens/sign_up_screen.dart';
 
 @injectable
 class SignUpProvider extends ChangeNotifier {
- 
   final NavigationService _navigationService = locator<NavigationService>();
   final SnackBarService _snackBarService = locator<SnackBarService>();
   final userRepository = locator<UserRepository>();
@@ -26,8 +26,23 @@ class SignUpProvider extends ChangeNotifier {
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   final TextEditingController phone = TextEditingController();
+  PhoneNumber? phoneNumber;
+
+  bool validPhoneNumber = false;
   Governance? selectedGovernance;
-  
+  void phoneNumberChanged(PhoneNumber phoneNumber) {
+    this.phoneNumber = phoneNumber;
+
+    final validPhoneNumber = (phoneNumber.phoneNumber!.startsWith('+2015') ||
+            phoneNumber.phoneNumber!.startsWith('+2010') ||
+            phoneNumber.phoneNumber!.startsWith('+2011') ||
+            phoneNumber.phoneNumber!.startsWith('+2012')) &&
+        phoneNumber.phoneNumber!.length == 13;
+
+    this.validPhoneNumber = validPhoneNumber;
+    notifyListeners();
+  }
+
   void governanceChanged(Governance? value) {
     if (value != null) {
       selectedGovernance = value;
@@ -42,13 +57,14 @@ class SignUpProvider extends ChangeNotifier {
       final successOrFailure = await userRepository.signUp(
         signUpRequestModel: SignUpRequestModel(
           address: selectedGovernance!.name,
-          name: name.text,
+          fullName: name.text,
           email: email.text,
           fireBaseToken: 'FirebaseToken', //TODO: Change this
           password: password.text,
           roleId: 1,
           categoryName: categoryModel.name,
           categoryId: categoryModel.id,
+          phone: phoneNumber!.phoneNumber!,
         ),
       );
       successOrFailure.fold((failure) {
@@ -61,5 +77,14 @@ class SignUpProvider extends ChangeNotifier {
         _navigationService.back();
       });
     } else {}
+  }
+
+  @override
+  void dispose() {
+    name.dispose();
+    email.dispose();
+    password.dispose();
+
+    super.dispose();
   }
 }

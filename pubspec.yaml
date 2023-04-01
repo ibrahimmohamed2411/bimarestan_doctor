@@ -60,7 +60,7 @@ dependencies:
   json_annotation: ^4.8.0
   flutter_callkit_incoming: ^1.0.3+3
   uuid: ^3.0.7
-
+  intl_phone_number_input: ^0.7.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -2,6 +2,8 @@ import 'package:bimarestan_doctors/features/user/data/datasources/user_local_dat
 import 'package:bimarestan_doctors/locator/locator.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../routes/routes.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -15,6 +17,18 @@ class HomeScreen extends StatelessWidget {
               title: Text('Sign Out'),
               onTap: () {
                 locator<UserLocalDataSource>().signOut();
+              },
+            ),
+            ListTile(
+              title: Text('Clinics'),
+              onTap: () {
+                Navigator.of(context).pushNamed(Routes.clinics);
+              },
+            ),
+            ListTile(
+              title: Text('Profile'),
+              onTap: () {
+                Navigator.of(context).pushNamed(Routes.profile);
               },
             ),
           ],

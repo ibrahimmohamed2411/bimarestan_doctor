@@ -23,7 +23,7 @@ class UserCredentialsModel {
   final int roleId;
   final String? roleName;
   final String token;
-  UserCredentialsModel({
+  const UserCredentialsModel({
     required this.address,
     required this.age,
     this.categoryId,
@@ -43,7 +43,16 @@ class UserCredentialsModel {
     required this.roleName,
     required this.token,
   });
+  
+  
+
+
+
+
   Map<String, dynamic> toJson() => _$UserCredentialsModelToJson(this);
   factory UserCredentialsModel.fromJson(Map<String, dynamic> json) =>
       _$UserCredentialsModelFromJson(json);
+
+
+
 }

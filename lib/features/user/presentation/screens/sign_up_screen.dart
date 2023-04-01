@@ -9,6 +9,7 @@ import 'package:bimarestan_doctors/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/shared/custom_circular_form_field.dart';
@@ -136,6 +137,26 @@ class SignUpScreen extends StatelessWidget {
                                   validator: FormBuilderValidators.required(),
                                   autovalidateMode:
                                       AutovalidateMode.onUserInteraction,
+                                ),
+                                 InternationalPhoneNumberInput(
+                                  textFieldController: model.phone,
+                                  inputDecoration: const InputDecoration(
+                                      labelText: 'Phone number'),
+                                  onInputChanged: model.phoneNumberChanged,
+                                  selectorConfig: const SelectorConfig(
+                                    selectorType: PhoneInputSelectorType.DIALOG,
+                                    setSelectorButtonAsPrefixIcon: true,
+                                    leadingPadding: 8,
+                                  ),
+                                  initialValue: model.phoneNumber,
+                                  countries: const ['EG'],
+                                  autoValidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                  validator: (p0) {
+                                    return model.validPhoneNumber
+                                        ? null
+                                        : 'Invalid phone number';
+                                  },
                                 ),
                                 // SizedBox(height: 4.h),
                                 // TextFormField(
