@@ -91,6 +91,7 @@ class ProfileLoadedWidget extends StatelessWidget {
                           ),
                           SizedBox(height: 4.h),
                           TextFormField(
+                            enabled: false,
                             onChanged: model.updateEmail,
                             initialValue: model.profile.email,
                             decoration: const InputDecoration(
@@ -119,7 +120,8 @@ class ProfileLoadedWidget extends StatelessWidget {
                           SizedBox(height: 4.h),
                           InternationalPhoneNumberInput(
                             inputDecoration: const InputDecoration(
-                                labelText: 'Phone number'),
+                              labelText: 'Phone number',
+                            ),
                             onInputChanged: model.phoneNumberChanged,
                             selectorConfig: const SelectorConfig(
                               selectorType: PhoneInputSelectorType.DIALOG,
@@ -139,7 +141,7 @@ class ProfileLoadedWidget extends StatelessWidget {
                           SizedBox(height: 4.h),
 
                           DropdownButtonFormField<Governance>(
-                            value: model.selectedGovernate,
+                            value: model.selectedGovernance,
                             items: governesses
                                 .map((e) => DropdownMenuItem(
                                       value: e,
@@ -150,7 +152,7 @@ class ProfileLoadedWidget extends StatelessWidget {
                               labelText: 'Address',
                               alignLabelWithHint: true,
                             ),
-                            onChanged: model.governateChanged,
+                            onChanged: model.governanceChanged,
                             validator: FormBuilderValidators.required(),
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,

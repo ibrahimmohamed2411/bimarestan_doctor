@@ -14,6 +14,7 @@ _$_Profile _$$_ProfileFromJson(Map<String, dynamic> json) => _$_Profile(
       fullName: json['fullName'] as String,
       image: json['image'] as String?,
       jobTitle: json['jobTitle'] as String?,
+      id: json['id'] as int,
       phone: json['phone'] as String,
     );
 
@@ -26,5 +27,6 @@ Map<String, dynamic> _$$_ProfileToJson(_$_Profile instance) =>
       'fullName': instance.fullName,
       'image': instance.image,
       'jobTitle': instance.jobTitle,
+      'id': instance.id,
       'phone': instance.phone,
     };

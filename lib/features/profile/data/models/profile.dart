@@ -14,7 +14,7 @@ class Profile with _$Profile {
     required String fullName,
     String? image,
     String? jobTitle,
-    
+    required int id,
     required String phone,
   }) = _Profile;
 

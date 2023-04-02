@@ -27,6 +27,7 @@ mixin _$Profile {
   String get fullName => throw _privateConstructorUsedError;
   String? get image => throw _privateConstructorUsedError;
   String? get jobTitle => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   String get phone => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,6 +48,7 @@ abstract class $ProfileCopyWith<$Res> {
       String fullName,
       String? image,
       String? jobTitle,
+      int id,
       String phone});
 }
 
@@ -70,6 +72,7 @@ class _$ProfileCopyWithImpl<$Res, $Val extends Profile>
     Object? fullName = null,
     Object? image = freezed,
     Object? jobTitle = freezed,
+    Object? id = null,
     Object? phone = null,
   }) {
     return _then(_value.copyWith(
@@ -101,6 +104,10 @@ class _$ProfileCopyWithImpl<$Res, $Val extends Profile>
           ? _value.jobTitle
           : jobTitle // ignore: cast_nullable_to_non_nullable
               as String?,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       phone: null == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
@@ -124,6 +131,7 @@ abstract class _$$_ProfileCopyWith<$Res> implements $ProfileCopyWith<$Res> {
       String fullName,
       String? image,
       String? jobTitle,
+      int id,
       String phone});
 }
 
@@ -144,6 +152,7 @@ class __$$_ProfileCopyWithImpl<$Res>
     Object? fullName = null,
     Object? image = freezed,
     Object? jobTitle = freezed,
+    Object? id = null,
     Object? phone = null,
   }) {
     return _then(_$_Profile(
@@ -175,6 +184,10 @@ class __$$_ProfileCopyWithImpl<$Res>
           ? _value.jobTitle
           : jobTitle // ignore: cast_nullable_to_non_nullable
               as String?,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       phone: null == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
@@ -194,6 +207,7 @@ class _$_Profile implements _Profile {
       required this.fullName,
       this.image,
       this.jobTitle,
+      required this.id,
       required this.phone});
 
   factory _$_Profile.fromJson(Map<String, dynamic> json) =>
@@ -214,11 +228,13 @@ class _$_Profile implements _Profile {
   @override
   final String? jobTitle;
   @override
+  final int id;
+  @override
   final String phone;
 
   @override
   String toString() {
-    return 'Profile(address: $address, categoryId: $categoryId, categoryName: $categoryName, email: $email, fullName: $fullName, image: $image, jobTitle: $jobTitle, phone: $phone)';
+    return 'Profile(address: $address, categoryId: $categoryId, categoryName: $categoryName, email: $email, fullName: $fullName, image: $image, jobTitle: $jobTitle, id: $id, phone: $phone)';
   }
 
   @override
@@ -237,13 +253,14 @@ class _$_Profile implements _Profile {
             (identical(other.image, image) || other.image == image) &&
             (identical(other.jobTitle, jobTitle) ||
                 other.jobTitle == jobTitle) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.phone, phone) || other.phone == phone));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, address, categoryId,
-      categoryName, email, fullName, image, jobTitle, phone);
+      categoryName, email, fullName, image, jobTitle, id, phone);
 
   @JsonKey(ignore: true)
   @override
@@ -268,6 +285,7 @@ abstract class _Profile implements Profile {
       required final String fullName,
       final String? image,
       final String? jobTitle,
+      required final int id,
       required final String phone}) = _$_Profile;
 
   factory _Profile.fromJson(Map<String, dynamic> json) = _$_Profile.fromJson;
@@ -286,6 +304,8 @@ abstract class _Profile implements Profile {
   String? get image;
   @override
   String? get jobTitle;
+  @override
+  int get id;
   @override
   String get phone;
   @override

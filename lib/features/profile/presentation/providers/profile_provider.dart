@@ -22,7 +22,7 @@ class ProfileProvider extends ChangeNotifier {
   String msg = '';
   PhoneNumber? phoneNumber;
   bool validPhoneNumber = false;
-  Governance? selectedGovernate;
+  Governance? selectedGovernance;
   ViewState profileState = ViewState.initial;
   void init() async {
     profileState = ViewState.loading;
@@ -39,7 +39,7 @@ class ProfileProvider extends ChangeNotifier {
         phoneNumber: profile.phone,
         isoCode: 'EGY',
       );
-      selectedGovernate =
+      selectedGovernance =
           governesses.firstWhere((element) => element.name == profile.address);
       notifyListeners();
     });
@@ -55,18 +55,8 @@ class ProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // void updatePassword(String password) {
-  //   profile = profile.copyWith(password: password);
-  //   notifyListeners();
-  // }
-
-  void updatePhone(PhoneNumber phoneNumber) {
-    this.phoneNumber = phoneNumber;
-    notifyListeners();
-  }
-
-  void updateGovernate(Governance governate) {
-    selectedGovernate = governate;
+  void updateGovernance(Governance governance) {
+    selectedGovernance = governance;
     notifyListeners();
   }
 
@@ -89,16 +79,11 @@ class ProfileProvider extends ChangeNotifier {
   }
 
   Future<void> submit() async {
-    // final updatedProfile = profile.copyWith(
-    //   phone: phoneNumber!.phoneNumber!,
-    //   address: selectedGovernate!.name,
-    // );
-
     if (formKey.currentState!.validate()) {
       showLoadingDialog();
       final updatedProfile = profile.copyWith(
         phone: phoneNumber!.phoneNumber!,
-        address: selectedGovernate!.name,
+        address: selectedGovernance!.name,
       );
       print(updatedProfile.toJson());
       final successOrFailure =
@@ -113,9 +98,9 @@ class ProfileProvider extends ChangeNotifier {
     }
   }
 
-  void governateChanged(Governance? value) {
+  void governanceChanged(Governance? value) {
     if (value != null) {
-      selectedGovernate = value;
+      selectedGovernance = value;
       notifyListeners();
     }
   }
