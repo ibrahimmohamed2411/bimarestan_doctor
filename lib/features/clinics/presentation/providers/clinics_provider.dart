@@ -1,17 +1,23 @@
 import 'package:bimarestan_doctors/core/state_management/view_state.dart';
+import 'package:bimarestan_doctors/core/utils/dialogs.dart';
 import 'package:bimarestan_doctors/features/clinics/data/models/clinic_model.dart';
 import 'package:bimarestan_doctors/locator/locator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:stacked_services/stacked_services.dart';
 
+import '../../../../core/services/snack_bar_service.dart';
+import '../../../user/data/datasources/user_local_data_source.dart';
 import '../../../user/presentation/screens/sign_up_screen.dart';
 import '../../data/repositories/clinics_repository.dart';
 
 @injectable
 class ClinicsProvider extends ChangeNotifier {
   final ClinicsRepository repository = locator<ClinicsRepository>();
+  final _navigationService = locator<NavigationService>();
+  final _snackBar = locator<SnackBarService>();
   ViewState clinicState = ViewState.initial;
   List<ClinicModel> clinics = [];
 
@@ -19,11 +25,63 @@ class ClinicsProvider extends ChangeNotifier {
   final TextEditingController phone = TextEditingController();
   final TextEditingController description = TextEditingController();
   Governance? address;
-  List<int>? days;
-  double? startWork;
-  double? endWork;
+  TimeOfDay? startWork;
+  TimeOfDay? endWork;
+  Set<int> selectedDays = {};
+  List<String> days = [
+    'Sat',
+    'Sun',
+    'Mon',
+    'Tues',
+    'Wed',
+    'Thurs',
+    'Fri',
+  ];
+
   PhoneNumber? phoneNumber;
   bool validPhoneNumber = false;
+
+  void onStartWorkChanged(TimeOfDay? start) {
+    if (start != null) {
+      startWork = start;
+      notifyListeners();
+    }
+  }
+
+  void onEndWorkChanged(TimeOfDay? end) {
+    if (end != null) {
+      endWork = end;
+      notifyListeners();
+    }
+  }
+
+  void addClinic() async {
+    final _user = await locator<UserLocalDataSource>().getUserCredentials();
+
+    final clinic = ClinicModel(
+      name: name.text,
+      phone: phone.text,
+      days: selectedDays.toList(),
+      doctorId: _user!.id,
+      id: 0,
+      description: description.text,
+      address: address!.name,
+      startWork: startWork!.hour * 60 + startWork!.minute,
+      endWork: endWork!.hour * 60 + endWork!.minute,
+    );
+    final successOrFailure = await repository.addClinic(clinic);
+    successOrFailure.fold((failure) {
+      dismissLoadingDialog();
+      _snackBar.showErrorSnackBar(failure.msg);
+    }, (_) {
+      dismissLoadingDialog();
+      _navigationService.back();
+      _snackBar.showSuccessSnackBar('Clinic added successfully');
+    });
+    clinics.add(clinic);
+    notifyListeners();
+  }
+
   void phoneNumberChanged(PhoneNumber phoneNumber) {
     this.phoneNumber = phoneNumber;
 
@@ -42,6 +100,15 @@ class ClinicsProvider extends ChangeNotifier {
       address = value;
       notifyListeners();
     }
+  }
+
+  void onDaySelected(int index) {
+    if (selectedDays.contains(index)) {
+      selectedDays.remove(index);
+    } else {
+      selectedDays.add(index);
+    }
+    notifyListeners();
   }
 
   Future<void> getAllClinicsByDoctorId() async {

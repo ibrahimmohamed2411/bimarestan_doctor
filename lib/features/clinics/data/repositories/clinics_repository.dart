@@ -25,4 +25,12 @@ class ClinicsRepository {
       return Left(ServerFailure(msg: e.msg.toString()));
     }
   }
+  Future<Either<Failure,Unit>> addClinic(ClinicModel clinic) async {
+    try {
+      final response = await remoteDataSource.addClinic(clinic);
+      return Right(response);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(msg: e.msg.toString()));
+    }
+  }
 }

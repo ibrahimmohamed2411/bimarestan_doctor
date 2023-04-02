@@ -11,11 +11,11 @@ ClinicModel _$ClinicModelFromJson(Map<String, dynamic> json) => ClinicModel(
       days: (json['days'] as List<dynamic>).map((e) => e as int).toList(),
       description: json['description'] as String,
       doctorId: json['doctorId'] as int,
-      endWork: json['endWork'] as int,
+      endWork: json['endWork'] as num,
       id: json['id'] as int,
       name: json['name'] as String,
       phone: json['phone'] as String,
-      startWork: json['startWork'] as int,
+      startWork: json['startWork'] as num,
     );
 
 Map<String, dynamic> _$ClinicModelToJson(ClinicModel instance) =>
