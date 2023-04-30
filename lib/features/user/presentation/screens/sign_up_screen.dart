@@ -81,7 +81,7 @@ class SignUpScreen extends StatelessWidget {
                                   labelText: 'Password',
                                   validator: FormBuilderValidators.compose([
                                     FormBuilderValidators.required(),
-                                    FormBuilderValidators.minLength(6),
+                                    FormBuilderValidators.minLength(8),
                                   ]),
                                   autovalidateMode:
                                       AutovalidateMode.onUserInteraction,
@@ -138,7 +138,7 @@ class SignUpScreen extends StatelessWidget {
                                   autovalidateMode:
                                       AutovalidateMode.onUserInteraction,
                                 ),
-                                 InternationalPhoneNumberInput(
+                                InternationalPhoneNumberInput(
                                   textFieldController: model.phone,
                                   inputDecoration: const InputDecoration(
                                       labelText: 'Phone number'),
@@ -174,7 +174,7 @@ class SignUpScreen extends StatelessWidget {
                                 SizedBox(height: 32.h),
                                 AppElevatedButton(
                                   height: 60.h,
-                                  onPressed:()=> model.submit(categoryModel),
+                                  onPressed: () => model.submit(categoryModel),
                                   child: Text(
                                     'Sign Up',
                                     style: TextStyle(fontSize: 20.sp),

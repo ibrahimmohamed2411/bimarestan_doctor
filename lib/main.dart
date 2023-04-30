@@ -10,22 +10,19 @@ import 'package:stacked_services/stacked_services.dart';
 import 'app.dart';
 import 'core/resources/theme_manager.dart';
 import 'core/services/snack_bar_service.dart';
+import 'firebase_options.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
-  // await Firebase.initializeApp();
-
-  // ignore: avoid_print
   print("Handling a background message: ${message.messageId}");
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+
   await configureDependencies();
   _initEasyLoading();
   runApp(MyApp());

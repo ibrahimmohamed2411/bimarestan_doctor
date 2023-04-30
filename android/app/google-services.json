@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "610985896850",
+    "project_id": "bimarestan-8c953",
+    "storage_bucket": "bimarestan-8c953.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610985896850:android:24f06005e47df512686f4b",
+        "android_client_info": {
+          "package_name": "com.example.bimarestan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610985896850-7go4hasm0dqsg3222tnh2csoek4ob0bq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBv6xLQmuYls2-Hu3mMfjspN8rtriSloKA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610985896850-7go4hasm0dqsg3222tnh2csoek4ob0bq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610985896850-66a1mvb04pbe1g33jjamkpm6u58j43ju.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bimarestan"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610985896850:android:bc23c625e111799c686f4b",
+        "android_client_info": {
+          "package_name": "com.example.bimarestan_doctors"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610985896850-7go4hasm0dqsg3222tnh2csoek4ob0bq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBv6xLQmuYls2-Hu3mMfjspN8rtriSloKA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610985896850-7go4hasm0dqsg3222tnh2csoek4ob0bq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610985896850-66a1mvb04pbe1g33jjamkpm6u58j43ju.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bimarestan"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

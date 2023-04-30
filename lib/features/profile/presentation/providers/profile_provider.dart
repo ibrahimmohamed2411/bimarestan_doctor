@@ -60,11 +60,6 @@ class ProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   void phoneNumberChanged(PhoneNumber phoneNumber) {
     this.phoneNumber = phoneNumber;
 
@@ -103,5 +98,10 @@ class ProfileProvider extends ChangeNotifier {
       selectedGovernance = value;
       notifyListeners();
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

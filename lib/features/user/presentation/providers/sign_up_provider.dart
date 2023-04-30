@@ -20,7 +20,7 @@ class SignUpProvider extends ChangeNotifier {
   final NavigationService _navigationService = locator<NavigationService>();
   final SnackBarService _snackBarService = locator<SnackBarService>();
   final userRepository = locator<UserRepository>();
-  // final notificationService = locator<NotificationService>();
+  final notificationService = locator<NotificationService>();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController name = TextEditingController();
   final TextEditingController email = TextEditingController();
@@ -53,13 +53,14 @@ class SignUpProvider extends ChangeNotifier {
   void submit(CategoryModel categoryModel) async {
     if (formKey.currentState!.validate() && selectedGovernance != null) {
       showLoadingDialog();
-      // final token = await notificationService.getFCMToken();
+      final token = await notificationService.getFCMToken();
+      debugPrint('token: $token');
       final successOrFailure = await userRepository.signUp(
         signUpRequestModel: SignUpRequestModel(
           address: selectedGovernance!.name,
           fullName: name.text,
           email: email.text,
-          fireBaseToken: 'FirebaseToken', //TODO: Change this
+          fireBaseToken: token!,
           password: password.text,
           roleId: 1,
           categoryName: categoryModel.name,
