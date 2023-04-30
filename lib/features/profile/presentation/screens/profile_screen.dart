@@ -44,7 +44,6 @@ class ProfileLoadedWidget extends StatelessWidget {
       builder: (context, model, child) {
         switch (model.profileState) {
           case ViewState.initial:
-
           case ViewState.loading:
             return Center(
               child: CircularProgressIndicator(),

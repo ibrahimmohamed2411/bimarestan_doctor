@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bimarestan_doctors">
+
+    <uses-permission android:name="android.permission.CAMERA" />
    <application
         android:label="bimarestan_doctors"
         android:name="${applicationName}"

@@ -1,4 +1,5 @@
 import 'package:bimarestan_doctors/core/shared/loading_widget.dart';
+import 'package:bimarestan_doctors/features/bottom_nav_bar/presentation/screens/bottom_nav_bar_screen.dart';
 import 'package:bimarestan_doctors/features/user/data/datasources/user_local_data_source.dart';
 import 'package:bimarestan_doctors/features/user/presentation/screens/home_screen.dart';
 import 'package:bimarestan_doctors/features/user/presentation/screens/login_screen.dart';
@@ -17,7 +18,7 @@ class LandingScreen extends StatelessWidget {
         stream: locator<UserLocalDataSource>().userCredentialsStream(),
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
-            return HomeScreen();
+            return BottomNavBarScreen();
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return LoadingWidget();
           } else if (snapshot.hasError) {
