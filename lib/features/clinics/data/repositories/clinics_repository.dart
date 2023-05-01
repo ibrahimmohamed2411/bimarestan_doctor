@@ -33,4 +33,21 @@ class ClinicsRepository {
       return Left(ServerFailure(msg: e.msg.toString()));
     }
   }
+
+  Future<Either<Failure,Unit>> removeClinic(ClinicModel clinic) async {
+    try {
+      final response = await remoteDataSource.removeClinic(clinic);
+      return Right(response);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(msg: e.msg.toString()));
+    }
+  }
+  Future<Either<Failure,Unit>> updateClinic(ClinicModel clinic) async {
+    try {
+      final response = await remoteDataSource.updateClinic(clinic);
+      return Right(response);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(msg: e.msg.toString()));
+    }
+  }
 }

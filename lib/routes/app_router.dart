@@ -1,5 +1,8 @@
+import 'package:bimarestan_doctors/features/appintments/presentation/screens/appointments_screen.dart';
 import 'package:bimarestan_doctors/features/bottom_nav_bar/presentation/screens/bottom_nav_bar_screen.dart';
+import 'package:bimarestan_doctors/features/clinics/data/models/clinic_model.dart';
 import 'package:bimarestan_doctors/features/clinics/presentation/screens/clinics_screen.dart';
+import 'package:bimarestan_doctors/features/clinics/presentation/screens/update_clinic_screen.dart';
 import 'package:bimarestan_doctors/features/profile/presentation/screens/profile_screen.dart';
 import 'package:bimarestan_doctors/features/user/presentation/screens/categories_screen.dart';
 import 'package:bimarestan_doctors/features/user/presentation/screens/home_screen.dart';
@@ -30,13 +33,26 @@ class AppRouter {
         );
       case Routes.home:
         return MaterialPageRoute(builder: (_) => const BottomNavBarScreen());
-
       case Routes.categories:
         return MaterialPageRoute(builder: (_) => CategoriesScreen());
       case Routes.clinics:
         return MaterialPageRoute(builder: (_) => ClinicsScreen());
       case Routes.profile:
         return MaterialPageRoute(builder: (_) => const ProfileScreen());
+      case Routes.appointments:
+        final clinicId = settings.arguments as int;
+        return MaterialPageRoute(
+          builder: (_) => AppointmentsScreen(
+            clinicId: clinicId,
+          ),
+        );
+      case Routes.updateClinic:
+        final clinic = settings.arguments as ClinicModel;
+        return MaterialPageRoute(
+          builder: (_) => UpdateClinicScreen(
+            clinic: clinic,
+          ),
+        );
     }
   }
 }

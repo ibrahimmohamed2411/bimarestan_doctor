@@ -7,4 +7,6 @@ class Routes {
   static const String categories = '/category';
   static const String clinics = '/clinics';
   static const String profile = '/profile';
+  static const String appointments = '/appointments';
+  static const String updateClinic = '/update-clinic';
 }

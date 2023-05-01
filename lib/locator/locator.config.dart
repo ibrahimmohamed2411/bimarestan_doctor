@@ -12,20 +12,26 @@ import 'package:bimarestan_doctors/core/services/notification_service.dart'
     as _i11;
 import 'package:bimarestan_doctors/core/services/snack_bar_service.dart'
     as _i15;
+import 'package:bimarestan_doctors/features/appintments/data/datasources/appintments_remote_data_source.dart'
+    as _i21;
+import 'package:bimarestan_doctors/features/appintments/data/repositories/appointments_repository.dart'
+    as _i22;
+import 'package:bimarestan_doctors/features/appintments/presentation/providers/appointments_provider.dart'
+    as _i29;
 import 'package:bimarestan_doctors/features/bottom_nav_bar/presentation/providers/bottom_nav_bar_provider.dart'
     as _i3;
 import 'package:bimarestan_doctors/features/clinics/data/datasources/clinics_remote_data_source.dart'
-    as _i21;
+    as _i23;
 import 'package:bimarestan_doctors/features/clinics/data/repositories/clinics_repository.dart'
-    as _i22;
+    as _i24;
 import 'package:bimarestan_doctors/features/clinics/presentation/providers/clinics_provider.dart'
     as _i6;
 import 'package:bimarestan_doctors/features/global_notifications/presentation/cubit/global_notifications_cubit.dart'
     as _i8;
 import 'package:bimarestan_doctors/features/profile/data/datasources/profile_remote_data_source.dart'
-    as _i23;
+    as _i25;
 import 'package:bimarestan_doctors/features/profile/data/repositories/profile_repository.dart'
-    as _i24;
+    as _i26;
 import 'package:bimarestan_doctors/features/profile/presentation/providers/profile_provider.dart'
     as _i12;
 import 'package:bimarestan_doctors/features/splash/presentation/providers/splash_provider.dart'
@@ -33,9 +39,9 @@ import 'package:bimarestan_doctors/features/splash/presentation/providers/splash
 import 'package:bimarestan_doctors/features/user/data/datasources/user_local_data_source.dart'
     as _i17;
 import 'package:bimarestan_doctors/features/user/data/datasources/user_remote_data_source.dart'
-    as _i25;
+    as _i27;
 import 'package:bimarestan_doctors/features/user/data/repositories/user_repository.dart'
-    as _i26;
+    as _i28;
 import 'package:bimarestan_doctors/features/user/presentation/providers/categories_provider.dart'
     as _i5;
 import 'package:bimarestan_doctors/features/user/presentation/providers/login_provider.dart'
@@ -50,7 +56,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart'
 import 'package:rx_shared_preferences/rx_shared_preferences.dart' as _i13;
 import 'package:stacked_services/stacked_services.dart' as _i4;
 
-import 'register_module.dart' as _i27;
+import 'register_module.dart' as _i30;
 
 // ignore_for_file: unnecessary_lambdas
 // ignore_for_file: lines_longer_than_80_chars
@@ -94,23 +100,30 @@ Future<_i1.GetIt> $initGetIt(
       () => _i19.DioConsumer(client: gh<_i7.Dio>()));
   gh.lazySingleton<_i20.AppInterceptors>(() => _i20.AppInterceptors(
       userLocalDataSource: gh<_i17.UserLocalDataSource>()));
-  gh.lazySingleton<_i21.ClinicRemoteDataSource>(
-      () => _i21.ClinicRemoteDataSource(apiConsumer: gh<_i18.ApiConsumer>()));
-  gh.lazySingleton<_i22.ClinicsRepository>(() => _i22.ClinicsRepository(
-        remoteDataSource: gh<_i21.ClinicRemoteDataSource>(),
+  gh.lazySingleton<_i21.AppointmentsRemoteDataSource>(() =>
+      _i21.AppointmentsRemoteDataSource(apiConsumer: gh<_i18.ApiConsumer>()));
+  gh.lazySingleton<_i22.AppointmentsRepository>(() =>
+      _i22.AppointmentsRepository(
+          remoteDataSource: gh<_i21.AppointmentsRemoteDataSource>()));
+  gh.lazySingleton<_i23.ClinicRemoteDataSource>(
+      () => _i23.ClinicRemoteDataSource(apiConsumer: gh<_i18.ApiConsumer>()));
+  gh.lazySingleton<_i24.ClinicsRepository>(() => _i24.ClinicsRepository(
+        remoteDataSource: gh<_i23.ClinicRemoteDataSource>(),
         userLocalDataSource: gh<_i17.UserLocalDataSource>(),
       ));
-  gh.lazySingleton<_i23.ProfileRemoteDataSource>(
-      () => _i23.ProfileRemoteDataSource(apiConsumer: gh<_i18.ApiConsumer>()));
-  gh.lazySingleton<_i24.ProfileRepository>(() => _i24.ProfileRepository(
-      remoteDataSource: gh<_i23.ProfileRemoteDataSource>()));
-  gh.lazySingleton<_i25.UserRemoteDataSource>(
-      () => _i25.UserRemoteDataSource(apiConsumer: gh<_i18.ApiConsumer>()));
-  gh.lazySingleton<_i26.UserRepository>(() => _i26.UserRepository(
-        userRemoteDataSource: gh<_i25.UserRemoteDataSource>(),
+  gh.lazySingleton<_i25.ProfileRemoteDataSource>(
+      () => _i25.ProfileRemoteDataSource(apiConsumer: gh<_i18.ApiConsumer>()));
+  gh.lazySingleton<_i26.ProfileRepository>(() => _i26.ProfileRepository(
+      remoteDataSource: gh<_i25.ProfileRemoteDataSource>()));
+  gh.lazySingleton<_i27.UserRemoteDataSource>(
+      () => _i27.UserRemoteDataSource(apiConsumer: gh<_i18.ApiConsumer>()));
+  gh.lazySingleton<_i28.UserRepository>(() => _i28.UserRepository(
+        userRemoteDataSource: gh<_i27.UserRemoteDataSource>(),
         userLocalDataSource: gh<_i17.UserLocalDataSource>(),
       ));
+  gh.factory<_i29.AppointmentsProvider>(() => _i29.AppointmentsProvider(
+      appointmentsRepository: gh<_i22.AppointmentsRepository>()));
   return getIt;
 }
 
-class _$RegisterModule extends _i27.RegisterModule {}
+class _$RegisterModule extends _i30.RegisterModule {}

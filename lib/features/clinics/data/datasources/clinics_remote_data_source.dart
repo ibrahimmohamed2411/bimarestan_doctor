@@ -19,9 +19,22 @@ class ClinicRemoteDataSource {
     );
     return response.map<ClinicModel>((e) => ClinicModel.fromJson(e)).toList();
   }
+
   Future<Unit> addClinic(ClinicModel clinic) async {
     final response = await apiConsumer.post(
       EndPoints.addClinic,
+      body: clinic.toJson(),
+    );
+    return unit;
+  }
+
+  Future<Unit> removeClinic(ClinicModel clinic) async {
+    await apiConsumer.delete('${EndPoints.removeClinic}${clinic.id}');
+    return unit;
+  }
+  Future<Unit> updateClinic(ClinicModel clinic) async {
+    await apiConsumer.put(
+      EndPoints.updateClinic,
       body: clinic.toJson(),
     );
     return unit;

@@ -38,8 +38,13 @@ class DioConsumer implements ApiConsumer {
   }
 
   @override
-  Future delete(String url) {
-    throw UnimplementedError();
+  Future delete(String url) async {
+    try {
+      final response = await client.delete(url);
+      return _handelResponseAsJson(response);
+    } on DioError catch (error) {
+      _handleDioError(error);
+    }
   }
 
   @override

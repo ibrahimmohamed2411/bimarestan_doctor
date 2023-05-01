@@ -124,4 +124,28 @@ class ClinicsProvider extends ChangeNotifier {
       notifyListeners();
     });
   }
+
+  Future<void> removeClinic(ClinicModel clinic) async {
+    clinics.remove(clinic);
+    notifyListeners();
+    final successOrFailure = await repository.removeClinic(clinic);
+    successOrFailure.fold((failure) {
+      _snackBar.showErrorSnackBar(failure.msg);
+    }, (_) {
+      _snackBar.showSuccessSnackBar('Clinic removed successfully');
+    });
+  }
+
+  Future<void> updateClinic(ClinicModel clinic) async {
+    final item = clinics.firstWhere((element) => element.id == clinic.id);
+    final index = clinics.indexOf(item);
+    clinics[index] = clinic;
+    notifyListeners();
+    final successOrFailure = await repository.updateClinic(clinic);
+    successOrFailure.fold((failure) {
+      _snackBar.showErrorSnackBar(failure.msg);
+    }, (_) {
+      _snackBar.showSuccessSnackBar('Clinic updated successfully');
+    });
+  }
 }
