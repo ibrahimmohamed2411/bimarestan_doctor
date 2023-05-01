@@ -1,3 +1,4 @@
+import 'package:bimarestan_doctors/features/clinics/presentation/providers/clinics_provider.dart';
 import 'package:bimarestan_doctors/features/user/presentation/screens/categories_screen.dart';
 import 'package:bimarestan_doctors/landing_screen.dart';
 import 'package:bimarestan_doctors/routes/app_router.dart';
@@ -17,9 +18,16 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) =>
-          locator<GlobalNotificationsProvider>()..listenNotifications(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<GlobalNotificationsProvider>(
+          create: (context) =>
+              locator<GlobalNotificationsProvider>()..listenNotifications(),
+        ),
+        ChangeNotifierProvider<ClinicsProvider>(
+          create: (context) => locator(),
+        ),
+      ],
       child: ScreenUtilInit(
         designSize: const Size(428, 926),
         minTextAdapt: true,
@@ -30,8 +38,6 @@ class MyApp extends StatelessWidget {
           builder: EasyLoading.init(),
           theme: getApplicationTheme(),
           onGenerateRoute: AppRouter.onGenerateRoute,
-          
-          
         ),
       ),
     );

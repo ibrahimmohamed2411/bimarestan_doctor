@@ -145,6 +145,7 @@ class ClinicsProvider extends ChangeNotifier {
     successOrFailure.fold((failure) {
       _snackBar.showErrorSnackBar(failure.msg);
     }, (_) {
+      _navigationService.back();
       _snackBar.showSuccessSnackBar('Clinic updated successfully');
     });
   }

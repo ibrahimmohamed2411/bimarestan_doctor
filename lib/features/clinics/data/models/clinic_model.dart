@@ -28,4 +28,29 @@ class ClinicModel {
   factory ClinicModel.fromJson(Map<String, dynamic> json) =>
       _$ClinicModelFromJson(json);
   Map<String, dynamic> toJson() => _$ClinicModelToJson(this);
+
+  
+  ClinicModel copyWith({
+    String? address,
+    List<int>? days,
+    String? description,
+    int? doctorId,
+    num? endWork,
+    int? id,
+    String? name,
+    String? phone,
+    num? startWork,
+  }) {
+    return ClinicModel(
+      address: address ?? this.address,
+      days: days ?? this.days,
+      description: description ?? this.description,
+      doctorId: doctorId ?? this.doctorId,
+      endWork: endWork ?? this.endWork,
+      id: id ?? this.id,
+      name: name ?? this.name,
+      phone: phone ?? this.phone,
+      startWork: startWork ?? this.startWork,
+    );
+  }
 }
