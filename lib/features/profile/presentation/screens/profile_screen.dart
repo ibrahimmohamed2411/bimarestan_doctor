@@ -37,8 +37,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                   return [
                     PopupMenuItem(
                       child: Text('Logout'),
-                      onTap: () {
-                        context.read<ProfileProvider>().logout();
+                      onTap: ()  {
+                         context.read<ProfileProvider>().logout();
                       },
                     )
                   ];

@@ -108,6 +108,6 @@ class ProfileProvider extends ChangeNotifier {
   }
 
   void logout() async {
-    await RxSharedPreferences.getInstance().remove(USERCREDENTIALS);
+    await locator<RxSharedPreferences>().remove(USERCREDENTIALS);
   }
 }
