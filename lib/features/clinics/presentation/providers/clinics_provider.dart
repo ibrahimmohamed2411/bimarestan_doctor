@@ -67,7 +67,6 @@ class ClinicsProvider extends ChangeNotifier {
       phone: phone.text,
       days: selectedDays.toList(),
       doctorId: _user!.id,
-      // id: 0,
       description: description.text,
       address: address!.name,
       startWork: convertDateToDouble(startWork!),
