@@ -83,8 +83,18 @@ class ClinicsProvider extends ChangeNotifier {
       _navigationService.back();
       _snackBar.showSuccessSnackBar('Clinic added successfully');
     });
-
+    clearFields();
     notifyListeners();
+  }
+
+  void clearFields() {
+    name.clear();
+    address = null;
+    description.clear();
+    phone.clear();
+    startWork = null;
+    endWork = null;
+    selectedDays = {};
   }
 
   void phoneNumberChanged(PhoneNumber phoneNumber) {
