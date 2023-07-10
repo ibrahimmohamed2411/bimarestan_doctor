@@ -27,8 +27,8 @@ class ProfileScreen extends StatelessWidget {
                   return [
                     PopupMenuItem(
                       child: Text('Logout'),
-                      onTap: () {
-                        context.read<ProfileProvider>().logout();
+                      onTap: ()  {
+                         context.read<ProfileProvider>().logout();
                       },
                     )
                   ];
