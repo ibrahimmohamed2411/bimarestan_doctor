@@ -5,10 +5,12 @@ import 'package:bimarestan_doctors/features/user/presentation/screens/sign_up_sc
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:rx_shared_preferences/rx_shared_preferences.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../../../../core/services/snack_bar_service.dart';
 import '../../../../locator/locator.dart';
+import '../../../user/data/datasources/user_local_data_source.dart';
 import '../../data/models/profile.dart';
 import '../../data/repositories/profile_repository.dart';
 
@@ -103,5 +105,9 @@ class ProfileProvider extends ChangeNotifier {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void logout() async {
+    await RxSharedPreferences.getInstance().remove(USERCREDENTIALS);
   }
 }

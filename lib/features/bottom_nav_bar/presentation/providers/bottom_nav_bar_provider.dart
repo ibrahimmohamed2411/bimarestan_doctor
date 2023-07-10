@@ -1,4 +1,3 @@
-import 'package:bimarestan_doctors/features/scanner/presentation/screens/scanner_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
@@ -12,10 +11,10 @@ class BottomNavBarProvider extends ChangeNotifier {
     ClinicsScreen(),
     Scaffold(
       appBar: AppBar(
-        title: Text('Requests'),
+        title: Text('Chats'),
       ),
     ),
-    ScannerScreen(),
+    // ScannerScreen(),
     ProfileScreen(),
   ];
   final _destinations = [
@@ -24,13 +23,13 @@ class BottomNavBarProvider extends ChangeNotifier {
       label: 'Home',
     ),
     NavigationDestination(
-      icon: Icon(Icons.radar),
-      label: 'requests',
+      icon: Icon(Icons.chat),
+      label: 'Chats',
     ),
-    NavigationDestination(
-      icon: Icon(Icons.qr_code),
-      label: 'Scan QR',
-    ),
+    // NavigationDestination(
+    //   icon: Icon(Icons.qr_code),
+    //   label: 'Scan QR',
+    // ),
     NavigationDestination(
       icon: Icon(Icons.person),
       label: 'Profile',

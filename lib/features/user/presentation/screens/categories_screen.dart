@@ -25,7 +25,6 @@ class CategoriesScreen extends StatelessWidget {
             builder: (context, model, child) {
               switch (model.categoriesState) {
                 case ViewState.initial:
-
                 case ViewState.loading:
                   return Center(child: CircularProgressIndicator());
                 case ViewState.error:
@@ -63,6 +62,7 @@ class CategoriesScreen extends StatelessWidget {
                               Center(
                                 child: Text(
                                   model.categories[index].name,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],

@@ -20,15 +20,32 @@ class ProfileScreen extends StatelessWidget {
     return ChangeNotifierProvider<ProfileProvider>(
       create: (context) => locator()..init(),
       child: Scaffold(
-          body: ColoredBox(
-        color: ColorManager.primary,
-        child: SafeArea(
-          child: ColoredBox(
-            color: Colors.white,
-            child: ProfileLoadedWidget(),
+          appBar: AppBar(
+            title: Text('Profile'),
+            actions: [
+              PopupMenuButton(
+                itemBuilder: (context) {
+                  return [
+                    PopupMenuItem(
+                      child: Text('Logout'),
+                      onTap: () {
+                        context.read<ProfileProvider>().logout();
+                      },
+                    )
+                  ];
+                },
+              ),
+            ],
           ),
-        ),
-      )),
+          body: ColoredBox(
+            color: ColorManager.primary,
+            child: SafeArea(
+              child: ColoredBox(
+                color: Colors.white,
+                child: ProfileLoadedWidget(),
+              ),
+            ),
+          )),
     );
   }
 }
