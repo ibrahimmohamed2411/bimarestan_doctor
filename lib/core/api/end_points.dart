@@ -1,5 +1,5 @@
 class EndPoints {
-  static const String baseUrl = 'http://192.168.1.3:8080/bimarestan/';
+  static const String baseUrl = 'http://192.168.1.6:8080/bimarestan/';
   // static const String baseUrl = 'http://3.229.127.143:8080/bimarestan/';
   static const String login = '${baseUrl}authentication/generate-token';
   static const String register = '${baseUrl}user/addUser';
@@ -14,4 +14,3 @@ class EndPoints {
   static const String removeClinic = '${baseUrl}clinic/deleteClinicById';
   static const String updateClinic = '${baseUrl}clinic/updateClinicById';
 }
-

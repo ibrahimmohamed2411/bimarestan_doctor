@@ -1,7 +1,6 @@
 import 'package:bimarestan_doctors/core/shared/app_card.dart';
 import 'package:bimarestan_doctors/features/user/presentation/providers/categories_provider.dart';
 import 'package:bimarestan_doctors/locator/locator.dart';
-import 'package:bimarestan_doctors/routes/app_router.dart';
 import 'package:bimarestan_doctors/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -50,8 +49,8 @@ class CategoriesScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Image.network(
-                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkcWjlnaX9hwi2g2dIand6CbzrP2bFS8zNB5F4JDz4&s',
+                              Image.asset(
+                                model.categories[index].image,
                                 height: 100,
                                 width: 100,
                                 fit: BoxFit.cover,
