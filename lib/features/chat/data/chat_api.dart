@@ -9,19 +9,116 @@ class ChatAPI {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<Message> sendMessage({
-    required String conversationId,
+    required String? conversationId,
     required int senderId,
+    required String senderName,
     required int recieverId,
+    required String recieverName,
     required String text,
     required List<String> images,
   }) async {
-    final newDoc = _firestore
+    final conversationExsists = conversationId != null;
+    final batch = _firestore.batch();
+    if (conversationExsists) {
+      return await _sendMessageAndUpdateLastConversationMessage(
+        conversationId,
+        senderId,
+        recieverId,
+        text,
+        images,
+        batch,
+      );
+    } else {
+      return await _createConversationAndSendNewMessage(
+        senderId,
+        senderName,
+        recieverId,
+        recieverName,
+        text,
+        images,
+        batch,
+      );
+    }
+  }
+
+  Future<Message> _createConversationAndSendNewMessage(
+      int senderId,
+      String senderName,
+      int recieverId,
+      String recieverName,
+      String text,
+      List<String> images,
+      WriteBatch batch) async {
+    final newConversationDoc = _firestore.collection('conversations').doc();
+    final newMessageDoc = _firestore
+        .collection('conversations')
+        .doc(newConversationDoc.id)
+        .collection('messages')
+        .doc();
+    final messageData = {
+      'id': newMessageDoc.id,
+      'senderId': senderId,
+      'recieverId': recieverId,
+      'conversationId': newConversationDoc.id,
+      'text': text,
+      'images': images,
+      'createdAt': FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp(),
+    };
+    final conversationData = {
+      'id': newConversationDoc.id,
+      'membersConcatenatedIds': getConactenedId(
+        senderId: senderId,
+        recieverId: recieverId,
+      ),
+      'membersIds': [
+        senderId,
+        recieverId,
+      ],
+      'members': [
+        {
+          'id': senderId,
+          'name': senderName,
+        },
+        {
+          'id': recieverId,
+          'name': recieverName,
+        },
+      ],
+      'lastMessage': messageData,
+      'createdAt': FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp(),
+    };
+    batch.set(newConversationDoc, conversationData);
+
+    batch.set(newMessageDoc, messageData);
+    await batch.commit();
+    return Message(
+      id: newMessageDoc.id,
+      conversationId: newConversationDoc.id,
+      senderId: senderId,
+      recieverId: recieverId,
+      text: text,
+      images: images,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    );
+  }
+
+  Future<Message> _sendMessageAndUpdateLastConversationMessage(
+      String conversationId,
+      int senderId,
+      int recieverId,
+      String text,
+      List<String> images,
+      WriteBatch batch) async {
+    final messageDoc = _firestore
         .collection('conversations')
         .doc(conversationId)
         .collection('messages')
         .doc();
-    await newDoc.set({
-      'id': newDoc.id,
+    final messagedata = {
+      'id': messageDoc.id,
       'senderId': senderId,
       'recieverId': recieverId,
       'conversationId': conversationId,
@@ -29,9 +126,18 @@ class ChatAPI {
       'images': images,
       'createdAt': FieldValue.serverTimestamp(),
       'updatedAt': FieldValue.serverTimestamp(),
-    });
+    };
+    batch.set(messageDoc, messagedata);
+    batch.update(
+      _firestore.collection('conversations').doc(conversationId),
+      {
+        'lastMessage': messagedata,
+        'updatedAt': FieldValue.serverTimestamp(),
+      },
+    );
+    await batch.commit();
     return Message(
-      id: newDoc.id,
+      id: messageDoc.id,
       conversationId: conversationId,
       senderId: senderId,
       recieverId: recieverId,
@@ -42,7 +148,8 @@ class ChatAPI {
     );
   }
 
-  Stream<List<Message>> getMessages(String conversationId) {
+  Stream<List<Message>> getMessagesStream(String conversationId) {
+    log('getMessagesStream');
     log(conversationId);
     return _firestore
         .collection('conversations')
@@ -57,103 +164,50 @@ class ChatAPI {
     });
   }
 
-  Future<Conversation> getConversationIfNotCreateOne({
-    required int doctorId,
-    required int patientId,
-    required String doctorName,
-    required String patientName,
-  }) async {
-    final isExists = await isConversationExists(
-      doctorId: doctorId,
-      patientId: patientId,
-    );
-    if (isExists) {
-      return getConversation(
-        doctorId: doctorId,
-        patientId: patientId,
-      );
-    } else {
-      return createConversation(
-        doctorId: doctorId,
-        patientId: patientId,
-        doctorName: doctorName,
-        patientName: patientName,
-      );
-    }
-  }
-
-  Future<Conversation> getConversation({
+  Future<Conversation?> getConversation({
     required int doctorId,
     required int patientId,
   }) async {
     final snapshot = await _firestore
         .collection('conversations')
-        .where('membersIds', arrayContainsAny: [doctorId, patientId]).get();
-    final doc = snapshot.docs.first;
-    return Conversation(
-      id: doc.id,
-      membersIds: (doc.get('membersIds') as List<dynamic>)
-          .map<int>((e) => e as int)
-          .toList(),
-      members: doc.get('members').map<Member>((e) {
-        return Member(
-          id: e['id'],
-          name: e['name'],
-        );
-      }).toList(),
-    );
+        .where(
+          'membersConcatenatedIds',
+          isEqualTo: getConactenedId(
+            senderId: doctorId,
+            recieverId: patientId,
+          ),
+        )
+        .limit(1)
+        .get();
+    log(doctorId.toString());
+    log(patientId.toString());
+    final doc = snapshot.docs.isNotEmpty ? snapshot.docs.first : null;
+    if (doc != null) {
+      return Conversation.fromJson(doc.data());
+    } else {
+      return null;
+    }
   }
 
-  Future<Conversation> createConversation({
-    required int doctorId,
-    required int patientId,
-    required String doctorName,
-    required String patientName,
-  }) async {
-    final newDoc = _firestore.collection('conversations').doc();
-
-    await newDoc.set(
-      {
-        'id': newDoc.id,
-        'membersIds': [doctorId, patientId],
-        'members': [
-          {
-            'id': doctorId,
-            'name': doctorName,
-          },
-          {
-            'id': patientId,
-            'name': patientName,
-          },
-        ],
-      },
-    );
-    return Conversation(
-      id: newDoc.id,
-      membersIds: [doctorId, patientId],
-      members: [
-        Member(
-          id: doctorId,
-          name: doctorName,
-        ),
-        Member(
-          id: patientId,
-          name: patientName,
-        ),
-      ],
-    );
-  }
-
-  Future<bool> isConversationExists({
-    required int doctorId,
-    required int patientId,
+  String getConactenedId({
+    required int senderId,
+    required int recieverId,
   }) {
+    final ids = [senderId, recieverId];
+    ids.sort();
+    return ids.join('_');
+  }
+
+  Stream<List<Conversation>> getConversationsStream(int userId) {
     return _firestore
         .collection('conversations')
-        .where('membersIds', arrayContainsAny: [doctorId, patientId])
-        .get()
-        .then((value) {
-          return value.docs.isNotEmpty;
-        });
+        .where('membersIds', arrayContains: userId)
+        .orderBy('updatedAt', descending: true)
+        .snapshots()
+        .map((event) {
+      return event.docs.map((e) {
+        return Conversation.fromJson(e.data());
+      }).toList();
+    });
   }
 }

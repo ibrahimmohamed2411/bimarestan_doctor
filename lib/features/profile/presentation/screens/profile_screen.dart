@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/resources/color_manager.dart';
 import '../../../../core/shared/app_elevated_button.dart';
-import '../../../../core/shared/password_text_form_field.dart';
 import '../../../../core/state_management/view_state.dart';
 
 class ProfileScreen extends StatelessWidget {

@@ -23,13 +23,12 @@ class ClinicModel {
     required this.name,
     required this.phone,
     required this.startWork,
-  
-  });
+  })  : assert(startWork >= 0),
+        assert(endWork < 24);
   factory ClinicModel.fromJson(Map<String, dynamic> json) =>
       _$ClinicModelFromJson(json);
   Map<String, dynamic> toJson() => _$ClinicModelToJson(this);
 
-  
   ClinicModel copyWith({
     String? address,
     List<int>? days,

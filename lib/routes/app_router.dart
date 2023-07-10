@@ -12,6 +12,7 @@ import 'package:bimarestan_doctors/features/splash/presentation/screens/splash_s
 import 'package:bimarestan_doctors/routes/routes.dart';
 import 'package:flutter/material.dart';
 
+import '../features/chat/chat_view.dart';
 import '../features/user/data/models/category_model.dart';
 import '../landing_screen.dart';
 
@@ -39,6 +40,17 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => ClinicsScreen());
       case Routes.profile:
         return MaterialPageRoute(builder: (_) => const ProfileScreen());
+      case Routes.chat:
+        final arguments = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => ChatView(
+            senderId: arguments['senderId'] as int,
+            senderName: arguments['senderName'] as String,
+            recieverId: arguments['recieverId'] as int,
+            recieverName: arguments['recieverName'] as String,
+          ),
+        );
       case Routes.appointments:
         final clinicId = settings.arguments as int;
         return MaterialPageRoute(

@@ -21,11 +21,15 @@ class ClinicsRepository {
       final userId = credentials!.id;
       final response = await remoteDataSource.getAllClinicsByDoctorId(userId);
       return Right(response);
-    } on ServerException catch (e) {
+    } on ServerException catch (e, s) {
+      print(s);
+      print(e);
+
       return Left(ServerFailure(msg: e.msg.toString()));
     }
   }
-  Future<Either<Failure,Unit>> addClinic(ClinicModel clinic) async {
+
+  Future<Either<Failure, Unit>> addClinic(ClinicModel clinic) async {
     try {
       final response = await remoteDataSource.addClinic(clinic);
       return Right(response);
@@ -34,7 +38,7 @@ class ClinicsRepository {
     }
   }
 
-  Future<Either<Failure,Unit>> removeClinic(ClinicModel clinic) async {
+  Future<Either<Failure, Unit>> removeClinic(ClinicModel clinic) async {
     try {
       final response = await remoteDataSource.removeClinic(clinic);
       return Right(response);
@@ -42,7 +46,8 @@ class ClinicsRepository {
       return Left(ServerFailure(msg: e.msg.toString()));
     }
   }
-  Future<Either<Failure,Unit>> updateClinic(ClinicModel clinic) async {
+
+  Future<Either<Failure, Unit>> updateClinic(ClinicModel clinic) async {
     try {
       final response = await remoteDataSource.updateClinic(clinic);
       return Right(response);

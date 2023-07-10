@@ -1,10 +1,8 @@
-import 'package:bimarestan_doctors/features/appintments/data/models/appointment.dart';
-import 'package:bimarestan_doctors/features/appintments/presentation/providers/appointments_provider.dart';
-import 'package:bimarestan_doctors/features/clinics/data/models/clinic_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:bimarestan_doctors/features/appintments/presentation/providers/appointments_provider.dart';
 
 class AppointmentsCalendar extends StatelessWidget {
   final int clinicId;
@@ -32,7 +30,7 @@ class AppointmentsCalendar extends StatelessWidget {
           rowHeight: 62.h,
           // selectedDayPredicate: model.selectedDayPredicate,
           onDaySelected: (selectedDay, focusedDay) =>
-              model.setSelectedAppointmentDay(clinicId,selectedDay),
+              model.setSelectedAppointmentDay(clinicId, selectedDay),
           selectedDayPredicate: (date) => isSameDay(model.selectedDay, date),
         );
       },

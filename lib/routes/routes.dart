@@ -9,4 +9,5 @@ class Routes {
   static const String profile = '/profile';
   static const String appointments = '/appointments';
   static const String updateClinic = '/update-clinic';
+  static const String chat = '/chat';
 }

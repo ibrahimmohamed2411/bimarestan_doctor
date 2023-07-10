@@ -14,8 +14,8 @@ abstract class RegisterModule {
   Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 
   @lazySingleton
-  RxSharedPreferences get rxPref  =>
-       RxSharedPreferences.getInstance();
+  RxSharedPreferences get rxPref =>
+      RxSharedPreferences(SharedPreferences.getInstance());
   @lazySingleton
   InternetConnectionChecker get internetConnectionChecker =>
       InternetConnectionChecker();

@@ -1,3 +1,4 @@
+import 'package:bimarestan_doctors/features/chat/chats_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
@@ -9,12 +10,7 @@ class BottomNavBarProvider extends ChangeNotifier {
   int _pageIndex = 0;
   final _screens = [
     ClinicsScreen(),
-    Scaffold(
-      appBar: AppBar(
-        title: Text('Chats'),
-      ),
-    ),
-    // ScannerScreen(),
+    ChatsScreen(),
     ProfileScreen(),
   ];
   final _destinations = [

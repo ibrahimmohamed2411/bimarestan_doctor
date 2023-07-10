@@ -18,7 +18,7 @@ class ClinicsProvider extends ChangeNotifier {
   final ClinicsRepository repository = locator<ClinicsRepository>();
   final _navigationService = locator<NavigationService>();
   final _snackBar = locator<SnackBarService>();
-  ViewState clinicState = ViewState.initial;
+  ViewState clinicState = ViewState.loading;
   List<ClinicModel> clinics = [];
 
   final TextEditingController name = TextEditingController();
@@ -55,6 +55,10 @@ class ClinicsProvider extends ChangeNotifier {
     }
   }
 
+  double convertDateToDouble(TimeOfDay date) {
+    return date.hour + date.minute / 100;
+  }
+
   void addClinic() async {
     final _user = await locator<UserLocalDataSource>().getUserCredentials();
 
@@ -66,8 +70,8 @@ class ClinicsProvider extends ChangeNotifier {
       id: 0,
       description: description.text,
       address: address!.name,
-      startWork: startWork!.hour * 60 + startWork!.minute,
-      endWork: endWork!.hour * 60 + endWork!.minute,
+      startWork: convertDateToDouble(startWork!),
+      endWork: convertDateToDouble(endWork!),
     );
     final successOrFailure = await repository.addClinic(clinic);
     successOrFailure.fold((failure) {
@@ -112,8 +116,10 @@ class ClinicsProvider extends ChangeNotifier {
   }
 
   Future<void> getAllClinicsByDoctorId() async {
-    clinicState = ViewState.loading;
-    notifyListeners();
+    if (clinicState != ViewState.loading) {
+      clinicState = ViewState.loading;
+      notifyListeners();
+    }
     final response = await repository.getAllClinicsByDoctorId();
     response.fold((failure) {
       clinicState = ViewState.error;

@@ -35,7 +35,10 @@ ThemeData getApplicationTheme() {
         surface: Colors.white,
         onSurface: ColorManager.onSerface,
       ) // textTheme: Typography.englishLike2021.apply(fontSizeFactor: 1.sp),
-      );
+      ,
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        selectedItemColor: ColorManager.primary,
+      ));
 }
 
 // const lightColorScheme = ColorScheme(

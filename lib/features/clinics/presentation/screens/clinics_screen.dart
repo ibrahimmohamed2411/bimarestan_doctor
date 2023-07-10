@@ -1,6 +1,5 @@
 import 'package:bimarestan_doctors/features/clinics/presentation/providers/clinics_provider.dart';
 import 'package:bimarestan_doctors/features/clinics/presentation/widgets/clinic_item.dart';
-import 'package:bimarestan_doctors/locator/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,9 +16,14 @@ class ClinicsScreen extends StatefulWidget {
 class _ClinicsScreenState extends State<ClinicsScreen> {
   @override
   void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
     context.read<ClinicsProvider>()..getAllClinicsByDoctorId();
 
-    super.initState();
+    super.didChangeDependencies();
   }
 
   @override

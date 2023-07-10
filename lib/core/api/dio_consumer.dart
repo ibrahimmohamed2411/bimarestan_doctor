@@ -34,7 +34,6 @@ class DioConsumer implements ApiConsumer {
         return status! < StatusCode.internalServerError;
       };
     client.interceptors.add(locator<AppInterceptors>());
-    if (kDebugMode) client.interceptors.add(LogInterceptor());
   }
 
   @override
@@ -93,9 +92,7 @@ class DioConsumer implements ApiConsumer {
     debugPrint('error type: ${error.type}');
     switch (error.type) {
       case DioErrorType.connectionTimeout:
-
       case DioErrorType.sendTimeout:
-
       case DioErrorType.receiveTimeout:
         throw FetchDataException();
       case DioErrorType.badResponse:
@@ -119,7 +116,6 @@ class DioConsumer implements ApiConsumer {
         throw NoInternetConnectionException();
 
       case DioErrorType.badCertificate:
-
       case DioErrorType.connectionError:
         throw FetchDataException();
     }

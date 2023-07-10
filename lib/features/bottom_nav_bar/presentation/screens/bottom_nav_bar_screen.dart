@@ -1,3 +1,4 @@
+import 'package:bimarestan_doctors/core/resources/color_manager.dart';
 import 'package:bimarestan_doctors/locator/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
             selectedIndex: model.pageIndex,
             onDestinationSelected: model.togglePageIndex,
             destinations: model.destinations,
+            indicatorColor: ColorManager.primary,
           ),
         ),
       ),
