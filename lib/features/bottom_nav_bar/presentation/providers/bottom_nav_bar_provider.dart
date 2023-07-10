@@ -7,6 +7,7 @@ import '../../../profile/presentation/screens/profile_screen.dart';
 
 @injectable
 class BottomNavBarProvider extends ChangeNotifier {
+  final PageController pageController = PageController();
   int _pageIndex = 0;
   final _screens = [
     ClinicsScreen(),
@@ -36,6 +37,7 @@ class BottomNavBarProvider extends ChangeNotifier {
 
   int get pageIndex => _pageIndex;
   void togglePageIndex(int index) {
+    pageController.jumpToPage(index);
     _pageIndex = index;
     notifyListeners();
   }

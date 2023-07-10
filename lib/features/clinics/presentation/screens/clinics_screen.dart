@@ -13,7 +13,9 @@ class ClinicsScreen extends StatefulWidget {
   State<ClinicsScreen> createState() => _ClinicsScreenState();
 }
 
-class _ClinicsScreenState extends State<ClinicsScreen> {
+class _ClinicsScreenState extends State<ClinicsScreen>
+    with AutomaticKeepAliveClientMixin {
+      
   @override
   void initState() {
     super.initState();
@@ -21,13 +23,16 @@ class _ClinicsScreenState extends State<ClinicsScreen> {
 
   @override
   void didChangeDependencies() {
-    context.read<ClinicsProvider>()..getAllClinicsByDoctorId();
-
+    context.read<ClinicsProvider>().getAllClinicsByDoctorId();
     super.didChangeDependencies();
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Clinics'),

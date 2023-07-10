@@ -18,7 +18,8 @@ class ChatsScreen extends StatefulWidget {
   State<ChatsScreen> createState() => _ChatsScreenState();
 }
 
-class _ChatsScreenState extends State<ChatsScreen> {
+class _ChatsScreenState extends State<ChatsScreen>
+    with AutomaticKeepAliveClientMixin {
   late final Future<UserCredentialsModel?> userFuture;
   @override
   void initState() {
@@ -27,7 +28,11 @@ class _ChatsScreenState extends State<ChatsScreen> {
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return FutureBuilder<UserCredentialsModel?>(
         future: userFuture,
         builder: (context, snapshot) {

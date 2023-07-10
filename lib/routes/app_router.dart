@@ -5,7 +5,6 @@ import 'package:bimarestan_doctors/features/clinics/presentation/screens/clinics
 import 'package:bimarestan_doctors/features/clinics/presentation/screens/update_clinic_screen.dart';
 import 'package:bimarestan_doctors/features/profile/presentation/screens/profile_screen.dart';
 import 'package:bimarestan_doctors/features/user/presentation/screens/categories_screen.dart';
-import 'package:bimarestan_doctors/features/user/presentation/screens/home_screen.dart';
 import 'package:bimarestan_doctors/features/user/presentation/screens/login_screen.dart';
 import 'package:bimarestan_doctors/features/user/presentation/screens/sign_up_screen.dart';
 import 'package:bimarestan_doctors/features/splash/presentation/screens/splash_screen.dart';
@@ -66,5 +65,6 @@ class AppRouter {
           ),
         );
     }
+    return null;
   }
 }

@@ -30,8 +30,9 @@ class CategoriesScreen extends StatelessWidget {
                   return Center(child: Text('Error'));
                 case ViewState.success:
                   return GridView.builder(
+                    padding: EdgeInsets.all(8),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
+                      crossAxisCount: 3,
                       childAspectRatio: 1.1,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
@@ -49,16 +50,16 @@ class CategoriesScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Image.asset(
-                                model.categories[index].image,
-                                height: 100,
-                                width: 100,
-                                fit: BoxFit.cover,
+                              Expanded(
+                                child: Image.asset(
+                                  model.categories[index].image,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                               SizedBox(
                                 height: 5,
                               ),
-                              Center(
+                              FittedBox(
                                 child: Text(
                                   model.categories[index].name,
                                   overflow: TextOverflow.ellipsis,

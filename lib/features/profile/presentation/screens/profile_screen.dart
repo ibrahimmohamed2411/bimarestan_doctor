@@ -11,11 +11,21 @@ import '../../../../core/resources/color_manager.dart';
 import '../../../../core/shared/app_elevated_button.dart';
 import '../../../../core/state_management/view_state.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ChangeNotifierProvider<ProfileProvider>(
       create: (context) => locator()..init(),
       child: Scaffold(

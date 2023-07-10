@@ -1,5 +1,6 @@
 import 'package:bimarestan_doctors/core/resources/color_manager.dart';
 import 'package:bimarestan_doctors/locator/locator.dart';
+import 'package:dartz/dartz.dart' hide State;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,16 +18,26 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<BottomNavBarProvider>(
       create: (context) => locator(),
-      child: Consumer<BottomNavBarProvider>(
-        builder: (context, model, child) => Scaffold(
-          body: model.currentPage,
-          bottomNavigationBar: NavigationBar(
+      child: Scaffold(
+        body: Selector<BottomNavBarProvider,
+            Tuple2<PageController, List<Widget>>>(
+          selector: (context, model) =>
+              Tuple2(model.pageController, model.screens),
+          builder: (context, tuple, child) => PageView(
+            physics: NeverScrollableScrollPhysics(),
+            controller: tuple.value1,
+            children: tuple.value2,
+          ),
+        ),
+        bottomNavigationBar:
+            Consumer<BottomNavBarProvider>(builder: (context, model, child) {
+          return NavigationBar(
             selectedIndex: model.pageIndex,
             onDestinationSelected: model.togglePageIndex,
             destinations: model.destinations,
             indicatorColor: ColorManager.primary,
-          ),
-        ),
+          );
+        }),
       ),
     );
   }
