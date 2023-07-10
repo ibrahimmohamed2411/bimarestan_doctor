@@ -29,7 +29,7 @@ class ClinicsRepository {
     }
   }
 
-  Future<Either<Failure, Unit>> addClinic(ClinicModel clinic) async {
+  Future<Either<Failure, ClinicModel>> addClinic(ClinicModel clinic) async {
     try {
       final response = await remoteDataSource.addClinic(clinic);
       return Right(response);

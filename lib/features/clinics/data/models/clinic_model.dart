@@ -9,7 +9,7 @@ class ClinicModel {
   final String description;
   final int doctorId;
   final num endWork;
-  final int id;
+  final int? id;
   final String name;
   final String phone;
   final num startWork;
@@ -19,7 +19,7 @@ class ClinicModel {
     required this.description,
     required this.doctorId,
     required this.endWork,
-    required this.id,
+    this.id,
     required this.name,
     required this.phone,
     required this.startWork,

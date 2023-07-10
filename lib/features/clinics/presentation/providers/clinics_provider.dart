@@ -67,7 +67,7 @@ class ClinicsProvider extends ChangeNotifier {
       phone: phone.text,
       days: selectedDays.toList(),
       doctorId: _user!.id,
-      id: 0,
+      // id: 0,
       description: description.text,
       address: address!.name,
       startWork: convertDateToDouble(startWork!),
@@ -77,12 +77,13 @@ class ClinicsProvider extends ChangeNotifier {
     successOrFailure.fold((failure) {
       dismissLoadingDialog();
       _snackBar.showErrorSnackBar(failure.msg);
-    }, (_) {
+    }, (addedClinic) {
+      clinics.add(clinic);
       dismissLoadingDialog();
       _navigationService.back();
       _snackBar.showSuccessSnackBar('Clinic added successfully');
     });
-    clinics.add(clinic);
+
     notifyListeners();
   }
 
