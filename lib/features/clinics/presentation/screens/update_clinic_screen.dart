@@ -45,10 +45,13 @@ class _UpdateClinicScreenState extends State<UpdateClinicScreen> {
     description = widget.clinic.description;
     worKingDays = widget.clinic.days;
     selectedDays = widget.clinic.days.map((e) => e).toSet();
-    startWork = TimeOfDay.fromDateTime(
-        DateTime(0).add(Duration(minutes: widget.clinic.startWork.toInt())));
-    endWork = TimeOfDay.fromDateTime(
-        DateTime(0).add(Duration(minutes: widget.clinic.endWork.toInt())));
+    startWork = TimeOfDay.fromDateTime(convertDoubleToDate(
+      widget.clinic.startWork.toDouble(),
+    ));
+
+    endWork = TimeOfDay.fromDateTime(convertDoubleToDate(
+      widget.clinic.endWork.toDouble(),
+    ));
     super.didChangeDependencies();
   }
 
@@ -249,8 +252,8 @@ class _UpdateClinicScreenState extends State<UpdateClinicScreen> {
                           phone: phone,
                           description: description,
                           days: selectedDays.toList(),
-                          startWork: startWork.hour * 60 + startWork.minute,
-                          endWork: endWork.hour * 60 + endWork.minute,
+                          startWork: convertDateToDouble(startWork),
+                          endWork: convertDateToDouble(endWork),
                         ),
                       );
                 },

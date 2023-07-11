@@ -16,7 +16,7 @@ class Appointment {
   final int price;
   final int priceId;
   final String priceName;
-  final int time;
+  final num time;
 
   Appointment({
     required this.appointmentDate,

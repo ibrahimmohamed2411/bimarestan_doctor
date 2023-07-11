@@ -19,7 +19,7 @@ Appointment _$AppointmentFromJson(Map<String, dynamic> json) => Appointment(
       price: json['price'] as int,
       priceId: json['priceId'] as int,
       priceName: json['priceName'] as String,
-      time: json['time'] as int,
+      time: json['time'] as num,
     );
 
 Map<String, dynamic> _$AppointmentToJson(Appointment instance) =>

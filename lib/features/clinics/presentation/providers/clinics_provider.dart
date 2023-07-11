@@ -55,10 +55,6 @@ class ClinicsProvider extends ChangeNotifier {
     }
   }
 
-  double convertDateToDouble(TimeOfDay date) {
-    return date.hour + date.minute / 100;
-  }
-
   void addClinic() async {
     final _user = await locator<UserLocalDataSource>().getUserCredentials();
 
@@ -77,7 +73,7 @@ class ClinicsProvider extends ChangeNotifier {
       dismissLoadingDialog();
       _snackBar.showErrorSnackBar(failure.msg);
     }, (addedClinic) {
-      clinics.add(clinic);
+      clinics.insert(0, clinic);
       dismissLoadingDialog();
       _navigationService.back();
       _snackBar.showSuccessSnackBar('Clinic added successfully');
@@ -165,4 +161,21 @@ class ClinicsProvider extends ChangeNotifier {
       _snackBar.showSuccessSnackBar('Clinic updated successfully');
     });
   }
+}
+
+double convertDateToDouble(TimeOfDay date) {
+  return date.hour + date.minute / 100;
+}
+
+DateTime convertDoubleToDate(double date) {
+  if (date < 0) throw Exception('Date must be positive');
+  if (date > 23.59) throw Exception('Date must be less than 24');
+
+  final fractionalPart = date % 1;
+  if (fractionalPart == 0) return DateTime(0, 0, 0, date.floor().toInt(), 0);
+  if (fractionalPart > 0.59) throw Exception('Minute must be less than 60');
+
+  final hour = date - fractionalPart;
+  final minute = (fractionalPart * 100).round();
+  return DateTime(0, 0, 0, hour.toInt(), minute);
 }
